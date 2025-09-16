@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Form Pengiriman Barang</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Form Pengiriman Barang</h1>
+    
+    <form id="shippingForm">
+      <fieldset>
+        <legend>Data Pengirim</legend>
+        <label>Nama Pengirim:
+          <input type="text" id="namaPengirim" required />
+        </label>
+        <label>No HP Pengirim:
+          <input type="tel" id="hpPengirim" required />
+        </label>
+        <label>Alamat Pengirim:
+          <textarea id="alamatPengirim" required></textarea>
+        </label>
+        <button type="button" onclick="saveSender()">💾 Simpan Data Pengirim</button>
+
+      </fieldset>
+<label for="senderSelect">Pilih Data Pengirim:</label>
+<select id="senderSelect" onchange="fillSenderFromSelect()">
+  <option value="">-- Pilih Pengirim --</option>
+</select>
+      <fieldset>
+        <legend>Data Penerima</legend>
+        <label>Nama Penerima:
+          <input type="text" id="namaPenerima" required />
+        </label>
+        <label>No HP Penerima:
+          <input type="tel" id="hpPenerima" required />
+        </label>
+        <label>Alamat Penerima:
+          <textarea id="alamatPenerima" required></textarea>
+        </label>
+        <button type="button" onclick="saveReceiver()">💾 Simpan Data Penerima</button>
+      </fieldset>
+<label for="receiverSelect">Pilih Data Penerima:</label>
+<select id="receiverSelect" onchange="fillReceiverFromSelect()">
+  <option value="">-- Pilih Penerima --</option>
+</select>
+      <fieldset>
+        <legend>Info Pengiriman</legend>
+        <label>No Referensi:
+          <input type="text" id="noReff" required />
+        </label>
+        <label>No AWB:
+          <input type="text" id="noAwb" required />
+        </label>
+      </fieldset>
+
+      <button type="submit">🚚 Kirim Barang</button>
+      <button type="button" onclick="printForm()">🖨️ Print Form</button>
+
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
