@@ -1,67 +1,67 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Form Pengiriman Barang</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Form Pengiriman Barang dengan Riwayat</title>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
     <h1>Form Pengiriman Barang</h1>
-    
     <form id="shippingForm">
       <fieldset>
         <legend>Data Pengirim</legend>
-        <label>Nama Pengirim:
-          <input type="text" id="namaPengirim" required />
-        </label>
-        <label>No HP Pengirim:
-          <input type="tel" id="hpPengirim" required />
-        </label>
-        <label>Alamat Pengirim:
-          <textarea id="alamatPengirim" required></textarea>
-        </label>
-        <button type="button" onclick="saveSender()">💾 Simpan Data Pengirim</button>
-
+        <label for="senderName">Nama Pengirim</label>
+        <input type="text" id="senderName" placeholder="Nama Pengirim" required />
+        <label for="senderPhone">No HP Pengirim</label>
+        <input type="tel" id="senderPhone" placeholder="08xxxxxxxxxx" required />
+        <label for="senderAddress">Alamat Pengirim</label>
+        <textarea id="senderAddress" rows="3" placeholder="Alamat lengkap" required></textarea>
       </fieldset>
-<label for="senderSelect">Pilih Data Pengirim:</label>
-<select id="senderSelect" onchange="fillSenderFromSelect()">
-  <option value="">-- Pilih Pengirim --</option>
-</select>
       <fieldset>
         <legend>Data Penerima</legend>
-        <label>Nama Penerima:
-          <input type="text" id="namaPenerima" required />
-        </label>
-        <label>No HP Penerima:
-          <input type="tel" id="hpPenerima" required />
-        </label>
-        <label>Alamat Penerima:
-          <textarea id="alamatPenerima" required></textarea>
-        </label>
-        <button type="button" onclick="saveReceiver()">💾 Simpan Data Penerima</button>
+        <label for="receiverName">Nama Penerima</label>
+        <input type="text" id="receiverName" placeholder="Nama Penerima" required />
+        <label for="receiverPhone">No HP Penerima</label>
+        <input type="tel" id="receiverPhone" placeholder="08xxxxxxxxxx" required />
+        <label for="receiverAddress">Alamat Penerima</label>
+        <textarea id="receiverAddress" rows="3" placeholder="Alamat lengkap" required></textarea>
       </fieldset>
-<label for="receiverSelect">Pilih Data Penerima:</label>
-<select id="receiverSelect" onchange="fillReceiverFromSelect()">
-  <option value="">-- Pilih Penerima --</option>
-</select>
       <fieldset>
-        <legend>Info Pengiriman</legend>
-        <label>No Referensi:
-          <input type="text" id="noReff" required />
-        </label>
-        <label>No AWB:
-          <input type="text" id="noAwb" required />
-        </label>
+        <legend>Informasi Pengiriman</legend>
+        <label for="refNumber">No Reff</label>
+        <input type="text" id="refNumber" placeholder="Nomor referensi" />
+        <label for="awbNumber">No AWB</label>
+        <input type="text" id="awbNumber" placeholder="Nomor AWB" />
       </fieldset>
-
-      <button type="submit">🚚 Kirim Barang</button>
-      <button type="button" onclick="printForm()">🖨️ Print Form</button>
-
+      <button type="submit">Kirim</button>
+      <button type="button" id="printBtn">Print</button>
     </form>
+
+    <section id="historySection">
+      <h2>Riwayat Pengiriman</h2>
+      <table id="historyTable">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama Pengirim</th>
+            <th>No HP Pengirim</th>
+            <th>Alamat Pengirim</th>
+            <th>Nama Penerima</th>
+            <th>No HP Penerima</th>
+            <th>Alamat Penerima</th>
+            <th>No Reff</th>
+            <th>No AWB</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Data history akan muncul di sini -->
+        </tbody>
+      </table>
+    </section>
   </div>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
