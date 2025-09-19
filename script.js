@@ -2,6 +2,9 @@ const form = document.getElementById('shippingForm');
 const historyTableBody = document.querySelector('#historyTable tbody');
 const printBtn = document.getElementById('printBtn');
 
+// URL logo tetap (edit sesuai kebutuhan)
+const defaultLogoUrl = "https://i.imgur.com/O7HfRj6.png"; 
+
 function loadHistory() {
   const history = JSON.parse(localStorage.getItem('shippingHistory')) || [];
   historyTableBody.innerHTML = '';
@@ -38,13 +41,11 @@ form.addEventListener('submit', (e) => {
     totalKoli: parseInt(form.totalKoli.value) || 1
   };
 
-  // Simpan ke localStorage
   const history = JSON.parse(localStorage.getItem('shippingHistory')) || [];
   history.push(formData);
   localStorage.setItem('shippingHistory', JSON.stringify(history));
 
   alert('Data pengiriman berhasil disimpan!');
-
   form.reset();
   loadHistory();
 });
@@ -67,6 +68,9 @@ printBtn.addEventListener('click', () => {
   for (let i = 1; i <= formData.totalKoli; i++) {
     allPages += `
       <div class="print-page">
+        <div class="logo-container">
+          <img src="https://i.imgur.com/8nbxERj.jpeg" alt="Logo" style="max-width:150px; margin:0 auto; display:block;" />
+        </div>
         <h1>Data Pengiriman Barang</h1>
 
         <div class="section">
@@ -95,7 +99,7 @@ printBtn.addEventListener('click', () => {
 
   const printContent = `
     <!DOCTYPE html>
-    <html lang="en">
+    <html lang="id">
     <head>
       <meta charset="UTF-8" />
       <title>Print Pengiriman Barang</title>
@@ -108,6 +112,7 @@ printBtn.addEventListener('click', () => {
         .koli { font-size: 18px; font-weight: bold; text-align: right; color: #d35400; margin-top: 15px; }
         .print-page { page-break-after: always; }
         .print-page:last-child { page-break-after: auto; }
+        .logo-container { text-align: center; margin-bottom: 15px; }
       </style>
     </head>
     <body>
@@ -127,5 +132,4 @@ printBtn.addEventListener('click', () => {
   };
 });
 
-// Load history saat pertama kali buka halaman
 window.onload = loadHistory;
