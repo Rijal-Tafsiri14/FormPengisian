@@ -23,56 +23,54 @@ body {
   border-top: 5px solid #2f80ed;
 }
 
-/* ===== HEADINGS ===== */
 h1 {
   text-align: center;
-  font-size: 2.4rem;
-  margin-bottom: 30px;
+  font-size: 2.2rem;
+  margin-bottom: 25px;
   color: #2f80ed;
 }
 
 h2 {
   text-align: center;
-  font-size: 1.6rem;
-  margin: 40px 0 20px;
+  font-size: 1.4rem;
+  margin: 30px 0 15px;
   color: #34495e;
 }
 
-/* ===== FORM STYLE ===== */
+/* ===== FORM ===== */
 form fieldset {
   border: none;
-  margin-bottom: 30px;
-  padding: 20px 25px;
+  margin-bottom: 25px;
+  padding: 20px;
   background-color: #f9fbfd;
   border-left: 4px solid #2f80ed;
   border-radius: 8px;
 }
 
 form legend {
-  font-weight: 600;
-  font-size: 1.1rem;
+  font-weight: bold;
   margin-bottom: 10px;
   color: #2c3e50;
 }
 
 label {
   display: block;
-  margin-top: 18px;
+  margin-top: 12px;
   font-weight: 500;
   color: #333;
 }
 
 input[type="text"],
 input[type="tel"],
+input[type="url"],
+input[type="number"],
 textarea {
   width: 100%;
-  padding: 10px 12px;
-  margin-top: 8px;
+  padding: 10px;
+  margin-top: 6px;
   border: 1.5px solid #dce3ea;
   border-radius: 6px;
   font-size: 1rem;
-  background-color: #ffffff;
-  transition: all 0.3s ease;
 }
 
 input:focus,
@@ -82,21 +80,16 @@ textarea:focus {
   outline: none;
 }
 
-textarea {
-  resize: vertical;
-}
-
 /* ===== BUTTONS ===== */
 button {
-  padding: 10px 20px;
+  padding: 10px 18px;
   font-size: 1rem;
-  margin-top: 25px;
-  margin-right: 10px;
+  margin-top: 20px;
+  margin-right: 8px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
-  transition: 0.3s;
 }
 
 button[type="submit"] {
@@ -132,7 +125,7 @@ button#printBtn:hover {
 
 #historyTable th,
 #historyTable td {
-  padding: 12px 14px;
+  padding: 10px;
   border: 1px solid #dce3ea;
   text-align: left;
 }
@@ -141,64 +134,15 @@ button#printBtn:hover {
   background-color: #f5f9ff;
 }
 
-#historyTable tbody tr:hover {
-  background-color: #e1efff;
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  .container {
-    padding: 20px;
-  }
-
-  form fieldset {
-    padding: 15px;
-  }
-
-  table, thead, tbody, th, td, tr {
-    display: block;
-  }
-
-  thead {
+/* ===== PRINT STYLES ===== */
+@media print {
+  .container, form, #historySection, button {
     display: none;
   }
-
-  tbody tr {
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 10px;
-    background-color: #ffffff;
+  .print-page {
+    page-break-after: always;
   }
-
-  tbody td {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 10px;
-    border: none;
-    border-bottom: 1px solid #eee;
+  .print-page:last-child {
+    page-break-after: auto;
   }
-
-  tbody td::before {
-    content: attr(data-label);
-    font-weight: 600;
-    color: #555;
-  }
-}
-/* ===== INPUT JUMLAH KOLI ===== */
-input[type="number"] {
-  width: 100%;
-  padding: 10px 12px;
-  margin-top: 8px;
-  border: 1.5px solid #dce3ea;
-  border-radius: 6px;
-  font-size: 1rem;
-  background-color: #ffffff;
-  transition: all 0.3s ease;
-}
-
-input[type="number"]:focus {
-  border-color: #2f80ed;
-  background-color: #eef7ff;
-  outline: none;
 }
