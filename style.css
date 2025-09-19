@@ -185,3 +185,20 @@ button#printBtn:hover {
     color: #555;
   }
 }
+/* ===== INPUT JUMLAH KOLI ===== */
+input[type="number"] {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 8px;
+  border: 1.5px solid #dce3ea;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+input[type="number"]:focus {
+  border-color: #2f80ed;
+  background-color: #eef7ff;
+  outline: none;
+}
