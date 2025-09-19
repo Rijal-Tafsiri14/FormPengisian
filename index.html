@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Form Pengiriman Barang dengan Riwayat</title>
-<link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Form Pengiriman Barang</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
@@ -13,30 +13,34 @@
       <fieldset>
         <legend>Data Pengirim</legend>
         <label for="senderName">Nama Pengirim</label>
-        <input type="text" id="senderName" placeholder="Nama Pengirim" required />
+        <input type="text" id="senderName" name="senderName" placeholder="Nama Pengirim" required />
         <label for="senderPhone">No HP Pengirim</label>
-        <input type="tel" id="senderPhone" placeholder="08xxxxxxxxxx" required />
+        <input type="tel" id="senderPhone" name="senderPhone" placeholder="08xxxxxxxxxx" required />
         <label for="senderAddress">Alamat Pengirim</label>
-        <textarea id="senderAddress" rows="3" placeholder="Alamat lengkap" required></textarea>
+        <textarea id="senderAddress" name="senderAddress" rows="3" placeholder="Alamat lengkap" required></textarea>
       </fieldset>
+
       <fieldset>
         <legend>Data Penerima</legend>
         <label for="receiverName">Nama Penerima</label>
-        <input type="text" id="receiverName" placeholder="Nama Penerima" required />
+        <input type="text" id="receiverName" name="receiverName" placeholder="Nama Penerima" required />
         <label for="receiverPhone">No HP Penerima</label>
-        <input type="tel" id="receiverPhone" placeholder="08xxxxxxxxxx" required />
+        <input type="tel" id="receiverPhone" name="receiverPhone" placeholder="08xxxxxxxxxx" required />
         <label for="receiverAddress">Alamat Penerima</label>
-        <textarea id="receiverAddress" rows="3" placeholder="Alamat lengkap" required></textarea>
+        <textarea id="receiverAddress" name="receiverAddress" rows="3" placeholder="Alamat lengkap" required></textarea>
       </fieldset>
+
       <fieldset>
         <legend>Informasi Pengiriman</legend>
         <label for="refNumber">No Reff</label>
-        <input type="text" id="refNumber" placeholder="Nomor referensi" />
+        <input type="text" id="refNumber" name="refNumber" placeholder="Nomor referensi" />
         <label for="awbNumber">No AWB</label>
-        <input type="text" id="awbNumber" placeholder="Nomor AWB" />
-      <label for="totalKoli">Jumlah Koli</label>
-  <input type="number" id="totalKoli" placeholder="Misal: 2" min="1" required />
+        <input type="text" id="awbNumber" name="awbNumber" placeholder="Nomor AWB" />
+        <label for="totalKoli">Jumlah Koli</label>
+        <input type="number" id="totalKoli" name="totalKoli" placeholder="Misal: 2" min="1" required />
+        
       </fieldset>
+
       <button type="submit">Kirim</button>
       <button type="button" id="printBtn">Print</button>
     </form>
@@ -59,12 +63,11 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Data history akan muncul di sini -->
+          <!-- Data history muncul di sini -->
         </tbody>
       </table>
     </section>
   </div>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
