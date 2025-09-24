@@ -1,9 +1,8 @@
 const form = document.getElementById('shippingForm');
 const historyTableBody = document.querySelector('#historyTable tbody');
 const printBtn = document.getElementById('printBtn');
-
-// URL logo tetap (edit sesuai kebutuhan)
-const defaultLogoUrl = "https://i.imgur.com/O7HfRj6.png"; 
+const toggleHistoryBtn = document.getElementById('toggleHistoryBtn');
+const historySection = document.getElementById('historySection');
 
 function loadHistory() {
   const history = JSON.parse(localStorage.getItem('shippingHistory')) || [];
@@ -13,22 +12,25 @@ function loadHistory() {
     tr.innerHTML = `
       <td>${index + 1}</td>
       <td>${item.senderName}</td>
-      <td>${item.senderPhone}</td>
-      <td>${item.senderAddress}</td>
       <td>${item.receiverName}</td>
-      <td>${item.receiverPhone}</td>
-      <td>${item.receiverAddress}</td>
       <td>${item.refNumber}</td>
       <td>${item.awbNumber}</td>
-      <td>${item.totalKoli || 1}</td>
+      <td>${item.totalKoli}</td>
+      <td><button onclick="deleteRow(${index})">Hapus</button></td>
     `;
     historyTableBody.appendChild(tr);
   });
 }
 
+function deleteRow(index) {
+  let history = JSON.parse(localStorage.getItem('shippingHistory')) || [];
+  history.splice(index, 1);
+  localStorage.setItem('shippingHistory', JSON.stringify(history));
+  loadHistory();
+}
+
 form.addEventListener('submit', (e) => {
   e.preventDefault();
-
   const formData = {
     senderName: form.senderName.value.trim(),
     senderPhone: form.senderPhone.value.trim(),
@@ -45,13 +47,12 @@ form.addEventListener('submit', (e) => {
   history.push(formData);
   localStorage.setItem('shippingHistory', JSON.stringify(history));
 
-  alert('Data pengiriman berhasil disimpan!');
   form.reset();
   loadHistory();
 });
 
 printBtn.addEventListener('click', () => {
-  const formData = {
+  const data = {
     senderName: form.senderName.value.trim(),
     senderPhone: form.senderPhone.value.trim(),
     senderAddress: form.senderAddress.value.trim(),
@@ -64,72 +65,47 @@ printBtn.addEventListener('click', () => {
   };
 
   let allPages = "";
-
-  for (let i = 1; i <= formData.totalKoli; i++) {
+  for (let i = 1; i <= data.totalKoli; i++) {
     allPages += `
-      <div class="print-page">
-        <div class="logo-container">
-          <img src="https://i.imgur.com/8nbxERj.jpeg" alt="Logo" style="max-width:150px; margin:0 auto; display:block;" />
+      <div class="print-page" style="font-family:Segoe UI,Tahoma,sans-serif;padding:20px;">
+        <div style="text-align:center;margin-bottom:20px;">
+          <img src="https://i.imgur.com/8nbxERj.jpeg" style="max-width:120px;" />
+          <h2 style="color:#2e7d32;margin-top:10px;">Data Pengiriman Barang</h2>
         </div>
-        <h1>Data Pengiriman Barang</h1>
-
-        <div class="section">
-          <h2>Data Pengirim</h2>
-          <div class="field"><label>Nama Pengirim:</label> ${formData.senderName}</div>
-          <div class="field"><label>No HP Pengirim:</label> ${formData.senderPhone}</div>
-          <div class="field"><label>Alamat Pengirim:</label> ${formData.senderAddress.replace(/\n/g, '<br>')}</div>
+        <div style="border:1px solid #ccc;padding:10px;margin-bottom:10px;border-radius:6px;">
+          <h3 style="margin:0 0 8px 0;">Data Pengirim</h3>
+          <p>Nama: ${data.senderName}</p>
+          <p>HP: ${data.senderPhone}</p>
+          <p>Alamat: ${data.senderAddress.replace(/\n/g,'<br>')}</p>
         </div>
-
-        <div class="section">
-          <h2>Data Penerima</h2>
-          <div class="field"><label>Nama Penerima:</label> ${formData.receiverName}</div>
-          <div class="field"><label>No HP Penerima:</label> ${formData.receiverPhone}</div>
-          <div class="field"><label>Alamat Penerima:</label> ${formData.receiverAddress.replace(/\n/g, '<br>')}</div>
+        <div style="border:1px solid #ccc;padding:10px;margin-bottom:10px;border-radius:6px;">
+          <h3 style="margin:0 0 8px 0;">Data Penerima</h3>
+          <p>Nama: ${data.receiverName}</p>
+          <p>HP: ${data.receiverPhone}</p>
+          <p>Alamat: ${data.receiverAddress.replace(/\n/g,'<br>')}</p>
         </div>
-
-        <div class="section">
-          <h2>Informasi Pengiriman</h2>
-          <div class="field"><label>No Reff:</label> ${formData.refNumber}</div>
-          <div class="field"><label>No AWB:</label> ${formData.awbNumber}</div>
-          <div class="field koli">Koli: ${i}/${formData.totalKoli}</div>
+        <div style="border:1px solid #ccc;padding:10px;border-radius:6px;display:flex;justify-content:space-between;">
+          <div>
+            <p>No Reff: ${data.refNumber}</p>
+            <p>No AWB: ${data.awbNumber}</p>
+          </div>
+          <div style="font-weight:bold;color:#d35400;">Koli: ${i}/${data.totalKoli}</div>
         </div>
       </div>
     `;
   }
 
-  const printContent = `
-    <!DOCTYPE html>
-    <html lang="id">
-    <head>
-      <meta charset="UTF-8" />
-      <title>Print Pengiriman Barang</title>
-      <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        h1 { text-align: center; color: #1a73e8; }
-        .section { margin-bottom: 20px; border: 1px solid #1a73e8; padding: 10px; border-radius: 6px; background: #f3f9ff; }
-        .field { margin-bottom: 8px; }
-        .field label { font-weight: bold; display: inline-block; width: 150px; }
-        .koli { font-size: 18px; font-weight: bold; text-align: right; color: #d35400; margin-top: 15px; }
-        .print-page { page-break-after: always; }
-        .print-page:last-child { page-break-after: auto; }
-        .logo-container { text-align: center; margin-bottom: 15px; }
-      </style>
-    </head>
-    <body>
-      ${allPages}
-    </body>
-    </html>
-  `;
+  const w = window.open('', '_blank');
+  w.document.write(`<html><head><title>Print</title></head><body>${allPages}</body></html>`);
+  w.document.close();
+  w.print();
+});
 
-  const printWindow = window.open('', '_blank', 'width=700,height=800');
-  printWindow.document.open();
-  printWindow.document.write(printContent);
-  printWindow.document.close();
-
-  printWindow.onload = () => {
-    printWindow.focus();
-    printWindow.print();
-  };
+toggleHistoryBtn.addEventListener('click', () => {
+  historySection.classList.toggle('hidden');
+  toggleHistoryBtn.textContent = historySection.classList.contains('hidden') 
+    ? "Tampilkan Riwayat" 
+    : "Sembunyikan Riwayat";
 });
 
 window.onload = loadHistory;
