@@ -1,77 +1,123 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Surat Jalan</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Surat Jalan — Sunrise Theme</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="header">
-    <h1>Form Surat Jalan</h1>
-  </div>
-
-  <div class="container">
-    <form id="shippingForm">
-      <fieldset>
-        <legend>Data Pengirim</legend>
-        <label for="senderName">Nama Pengirim</label>
-        <input type="text" id="senderName" required />
-        <label for="senderPhone">No HP Pengirim</label>
-        <input type="tel" id="senderPhone" required />
-        <label for="senderAddress">Alamat Pengirim</label>
-        <textarea id="senderAddress" rows="3" required></textarea>
-      </fieldset>
-
-      <fieldset>
-        <legend>Data Penerima</legend>
-        <label for="receiverName">Nama Penerima</label>
-        <input type="text" id="receiverName" required />
-        <label for="receiverPhone">No HP Penerima</label>
-        <input type="tel" id="receiverPhone" required />
-        <label for="receiverAddress">Alamat Penerima</label>
-        <textarea id="receiverAddress" rows="3" required></textarea>
-      </fieldset>
-
-      <fieldset>
-        <legend>Informasi Pengiriman</legend>
-        <label for="refNumber">No Reff</label>
-        <input type="text" id="refNumber" />
-        <label for="awbNumber">No AWB</label>
-        <input type="text" id="awbNumber" />
-        <label for="totalKoli">Jumlah Koli</label>
-        <input type="number" id="totalKoli" min="1" value="1" required />
-      </fieldset>
-
-      <button type="submit">Simpan</button>
-      <button type="button" id="printBtn">Print</button>
-    </form>
-
-    <div class="history-toggle">
-      <button type="button" id="toggleHistoryBtn">Tampilkan Riwayat</button>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <!-- logo gunung -->
+        <img src="https://i.imgur.com/8nbxERj.jpeg" alt="Logo Gunung" />
+      </div>
+      <div class="title">
+        <h1>Surat Jalan</h1>
+        <p class="subtitle">Sistem kecil pengiriman — tema sunrise, profesional & responsif</p>
+      </div>
+      <div class="header-actions">
+        <button id="printBtn" class="btn btn-accent">🖨️ Cetak</button>
+        <button id="toggleHistoryBtn" class="btn btn-secondary">📜 Riwayat</button>
+      </div>
     </div>
+  </header>
 
-    <section id="historySection" class="hidden">
-      <h2>Riwayat Pengiriman</h2>
-      <table id="historyTable">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Pengirim</th>
-            <th>Penerima</th>
-            <th>No Reff</th>
-            <th>No AWB</th>
-            <th>Koli</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Data riwayat muncul di sini -->
-        </tbody>
-      </table>
+  <main class="container">
+    <section class="card form-card">
+      <form id="shippingForm" autocomplete="off">
+        <div class="form-grid">
+          <fieldset>
+            <legend>📦 Data Pengirim</legend>
+            <label>Nama Pengirim
+              <input type="text" id="senderName" name="senderName" required />
+            </label>
+            <label>No HP Pengirim
+              <input type="tel" id="senderPhone" name="senderPhone" required />
+            </label>
+            <label>Alamat Pengirim
+              <textarea id="senderAddress" name="senderAddress" rows="3" required></textarea>
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>📬 Data Penerima</legend>
+            <label>Nama Penerima
+              <input type="text" id="receiverName" name="receiverName" required />
+            </label>
+            <label>No HP Penerima
+              <input type="tel" id="receiverPhone" name="receiverPhone" required />
+            </label>
+            <label>Alamat Penerima
+              <textarea id="receiverAddress" name="receiverAddress" rows="3" required></textarea>
+            </label>
+          </fieldset>
+
+          <fieldset class="fullwidth">
+            <legend>📝 Informasi Pengiriman</legend>
+            <div class="inline">
+              <label>No Reff
+                <input type="text" id="refNumber" name="refNumber" />
+              </label>
+              <label>No AWB
+                <input type="text" id="awbNumber" name="awbNumber" />
+              </label>
+              <label>Jumlah Koli
+                <input type="number" id="totalKoli" name="totalKoli" min="1" value="1" required />
+              </label>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">💾 Simpan</button>
+          <button type="button" id="printFormBtn" class="btn btn-outline">🔍 Preview Cetak</button>
+        </div>
+      </form>
     </section>
-  </div>
 
+    <section id="historySection" class="card history-card hidden">
+      <div class="history-top">
+        <input id="searchInput" placeholder="🔎 Cari nama, alamat, ref, atau AWB..." />
+        <div class="toolbar">
+          <label class="file-label btn btn-tertiary">
+            📥 Import CSV
+            <input type="file" id="importFile" accept=".csv" />
+          </label>
+          <button id="exportBtn" class="btn btn-accent">📤 Export CSV</button>
+          <button id="clearAllBtn" class="btn btn-danger">🧹 Hapus Semua</button>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table id="historyTable">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Tanggal</th>
+              <th>Pengirim</th>
+              <th>HP Pengirim</th>
+              <th>Alamat Pengirim</th>
+              <th>Penerima</th>
+              <th>HP Penerima</th>
+              <th>Alamat Penerima</th>
+              <th>No Reff</th>
+              <th>No AWB</th>
+              <th>Koli</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- toast container (popups dibuat by JS) -->
+  <div id="toast-root"></div>
+
+  <!-- optional QR lib kept -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
   <script src="script.js"></script>
 </body>
